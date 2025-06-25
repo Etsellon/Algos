@@ -27,12 +27,12 @@ namespace Algos.DataAccess.Repositories
             return entity is null ? default : ToDomain(entity);
         }
 
-        public virtual async Task<IEnumerable<TDomain>> GetByPages(int pageNumber = 1, int pageSize = 20)
+        public virtual async Task<IEnumerable<TDomain>> GetByPages(int page = 1, int size = 20)
         {
             var entities = await _dbSet
                 .AsNoTracking()
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((page - 1) * size)
+                .Take(size)
                 .ToListAsync();
 
             return entities.Select(e => ToDomain(e));
