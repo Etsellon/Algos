@@ -6,6 +6,7 @@ namespace Algos.Core.models
     {
         private const int MAX_NAME_LENGTH = 32;
         private const int MAX_TEXT_LENGTH = 320;
+
         private CompanyDomainModel(Guid id,
             string name,
             string description,
@@ -18,13 +19,14 @@ namespace Algos.Core.models
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
         }
+
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public Result<CompanyDomainModel> Create(
+        public static Result<CompanyDomainModel> Create(
             Guid id,
             string name,
             string description,
