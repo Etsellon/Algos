@@ -1,0 +1,19 @@
+﻿@model Algos.Web.ViewModels.CompanyViewModel
+@{
+    ViewData["Title"] = "Детали компании";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Name</h4>
+        <p class="card-text"><strong>Описание:</strong> @Model.Description</p>
+        <p class="card-text"><strong>Капитализация:</strong> @Model.Price.ToString("C")</p>
+        <p class="card-text"><strong>Создано:</strong> @Model.CreatedAt.ToLocalTime().ToString("g")</p>
+        <p class="card-text"><strong>Обновлено:</strong> @Model.UpdatedAt.ToLocalTime().ToString("g")</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Назад к списку</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mt-3 ms-2">Редактировать</a>
