@@ -7,5 +7,6 @@
         Task<TDomain?> GetById(Guid id);
         Task<IEnumerable<TDomain>> GetByPages(int pageNumber = 1, int pageSize = 20);
         Task<Guid> Update(TDomain domain);
+        Task<int> GetTotalCount();
     }
 }

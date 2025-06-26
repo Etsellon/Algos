@@ -9,14 +9,14 @@ namespace Algos.Core.models
 
         private CompanyDomainModel(Guid id,
             string name,
-            string description,
+            string? description,
             decimal price,
             DateTime createdAt,
             DateTime updatedAt)
         {
             Id = id;
             Name = name;
-            Description = description;
+            Description = description ?? string.Empty;
             Price = price;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
@@ -32,7 +32,7 @@ namespace Algos.Core.models
         public static Result<CompanyDomainModel> Create(
             Guid id,
             string name,
-            string description,
+            string? description,
             decimal price,
             DateTime createdAt,
             DateTime updatedAt)
@@ -44,8 +44,9 @@ namespace Algos.Core.models
             else if (name.Length > MAX_NAME_LENGTH)
                 errors.Add($"Company name must not exceed {MAX_NAME_LENGTH} characters.");
 
-            if (description.Length > MAX_TEXT_LENGTH)
-                errors.Add($"Company description must not exceed {MAX_TEXT_LENGTH} characters.");
+            if (description != null)
+                if (description.Length > MAX_TEXT_LENGTH)
+                    errors.Add($"Company description must not exceed {MAX_TEXT_LENGTH} characters.");
 
             if (errors.Count > 0)
                 return Result<CompanyDomainModel>.Failure(errors);
