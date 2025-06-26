@@ -1,4 +1,4 @@
-namespace Algos.Web.Models
+namespace Algos.Web.ViewModels
 {
     public class ErrorViewModel
     {

@@ -1,0 +1,37 @@
+﻿@model Algos.Web.ViewModels.CompanyViewModel
+@{
+    ViewData["Title"] = Model.Id == Guid.Empty ? "Добавить компанию" : "Редактирование";
+    var isEdit = Model.Id != Guid.Empty;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <form asp-action="@(isEdit? "Edit" : "Create")" asp-route-id="@Model.Id" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Name">Наименование компании</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description">Описание компании</label>
+                <textarea asp-for="Description" class="form-control"> </textarea>
+                <span asp-validation-for="Description" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Price">Капитализация</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger" />
+            </div>
+
+            <br />
+            <button type="submit" class="btn btn-success">@(isEdit ? "Обновить" : "Создать")    </button>
+            <a asp-action="Index" class="btn btn-secondary">Назад</a>
+        </form>
+    </div>
+</div>
