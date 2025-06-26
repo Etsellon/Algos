@@ -13,6 +13,7 @@ namespace Algos.DataAccess.Repositories
                 entity.Id,
                 entity.Name,
                 entity.Description,
+                entity.Price,
                 entity.CreatedAt,
                 entity.UpdatedAt);
 
@@ -26,6 +27,7 @@ namespace Algos.DataAccess.Repositories
                 Id = domain.Id,
                 Name = domain.Name,
                 Description = domain.Description,
+                Price = domain.Price,
                 CreatedAt = domain.CreatedAt,
                 UpdatedAt = domain.UpdatedAt,
             };
@@ -43,6 +45,18 @@ namespace Algos.DataAccess.Repositories
                 return null;
 
             return ToDomain(entity);
+        }
+
+        public override async Task<Guid> Update(CompanyDomainModel domain)
+        {
+            await _dbSet
+                .Where(e => e.Id == domain.Id)
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(e => e.Name, domain.Name)
+                    .SetProperty(e => e.Description, domain.Description)
+                    .SetProperty(e => e.Price, domain.Price));
+
+            return domain.Id;
         }
     }
 }

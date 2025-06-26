@@ -38,29 +38,27 @@ namespace Algos.DataAccess.Repositories
             return entities.Select(e => ToDomain(e));
         }
 
-        public virtual async Task Add(TDomain domain)
+        public virtual async Task<Guid> Add(TDomain domain)
         {
             var entity = ToEntity(domain);
+          
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
+
+            return entity.Id;
         }
 
-        public virtual async Task Update(TDomain domain)
+        public virtual async Task<Guid> Update(TDomain domain)
         {
             var entity = ToEntity(domain);
+
             _dbSet.Update(entity);
             await _context.SaveChangesAsync();
+
+            return entity.Id;
         }
 
-        public virtual async Task Delete(Guid id)
-        {
-            var entity = await _dbSet.FindAsync(id);
-
-            if (entity == null)
-                return;
-
-            _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
-        }
+        public virtual async Task Delete(Guid id) => 
+            await _dbSet.Where(e => e.Id == id).ExecuteDeleteAsync();
     }
 }
