@@ -10,26 +10,30 @@ namespace Algos.Core.models
         private CompanyDomainModel(Guid id,
             string name,
             string description,
+            decimal price,
             DateTime createdAt,
             DateTime updatedAt)
         {
             Id = id;
             Name = name;
             Description = description;
+            Price = price;
             CreatedAt = createdAt;
             UpdatedAt = updatedAt;
         }
 
-        public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public Guid Id { get; }
+        public string Name { get; } = string.Empty;
+        public string Description { get; } = string.Empty;
+        public decimal Price { get; }
+        public DateTime CreatedAt { get; }
+        public DateTime UpdatedAt { get; }
 
         public static Result<CompanyDomainModel> Create(
             Guid id,
             string name,
             string description,
+            decimal price,
             DateTime createdAt,
             DateTime updatedAt)
         {
@@ -46,7 +50,7 @@ namespace Algos.Core.models
             if (errors.Count > 0)
                 return Result<CompanyDomainModel>.Failure(errors);
 
-            var company = new CompanyDomainModel(id, name, description, createdAt, updatedAt);
+            var company = new CompanyDomainModel(id, name, description, price, createdAt, updatedAt);
             return Result<CompanyDomainModel>.Success(company);
         }
     }
