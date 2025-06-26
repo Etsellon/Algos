@@ -1,0 +1,28 @@
+﻿.description-truncate {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.description-wrap {
+    max-width: 300px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.button-group form {
+    margin: 0;
+}
+
+.button-group form,
+.button-group a {
+    display: inline-block;
+}
