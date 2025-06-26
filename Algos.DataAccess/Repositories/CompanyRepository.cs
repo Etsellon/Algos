@@ -54,7 +54,8 @@ namespace Algos.DataAccess.Repositories
                 .ExecuteUpdateAsync(s => s
                     .SetProperty(e => e.Name, domain.Name)
                     .SetProperty(e => e.Description, domain.Description)
-                    .SetProperty(e => e.Price, domain.Price));
+                    .SetProperty(e => e.Price, domain.Price)
+                    .SetProperty(e => e.UpdatedAt, DateTime.UtcNow));
 
             return domain.Id;
         }

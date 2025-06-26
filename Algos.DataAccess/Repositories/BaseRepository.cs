@@ -31,6 +31,7 @@ namespace Algos.DataAccess.Repositories
         {
             var entities = await _dbSet
                 .AsNoTracking()
+                .OrderByDescending(e => e.CreatedAt)
                 .Skip((page - 1) * size)
                 .Take(size)
                 .ToListAsync();
@@ -41,7 +42,7 @@ namespace Algos.DataAccess.Repositories
         public virtual async Task<Guid> Add(TDomain domain)
         {
             var entity = ToEntity(domain);
-          
+
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
 
@@ -58,7 +59,12 @@ namespace Algos.DataAccess.Repositories
             return entity.Id;
         }
 
-        public virtual async Task Delete(Guid id) => 
+        public virtual async Task Delete(Guid id)
+        {
             await _dbSet.Where(e => e.Id == id).ExecuteDeleteAsync();
+        }
+
+        public async Task<int> GetTotalCount() =>
+            await _dbSet.CountAsync();
     }
 }
